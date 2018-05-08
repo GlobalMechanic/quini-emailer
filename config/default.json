@@ -1,0 +1,12 @@
+{
+  "port": 5400,
+
+  "socketio": true,
+  "auth": true,
+  "rest": true,
+
+  "mongodb": {
+    "database": "quini-emailer",
+    "hosts": [ "localhost:5450" ]
+  }
+}
