@@ -8,5 +8,11 @@
   "mongodb": {
     "database": "quini-emailer",
     "hosts": [ "localhost:5450" ]
+  },
+
+  "services": {
+    "users": true,
+    "clients": true,
+    "emails": true
   }
 }

@@ -1,36 +1,11 @@
 import React from 'react'
+
 import styled from 'styled-components'
+import { object } from 'prop-types'
 
 import { Column, Scrollable } from '../common'
 
 import { BLUE, PURPLE, WHITE } from '../../constants'
-
-/******************************************************************************/
-// TEMP dummy data
-/******************************************************************************/
-
-let wines = [
-  'Bivongi',
-  'Cirò',
-  'Donnici',
-  'Greco di Bianco',
-  'Lamezia',
-  'Melissa',
-  'Pollino',
-  'Sant\'Anna di Isola Capo Rizzuto',
-  'San Vito di Luzzi',
-  'Savuto',
-  'Verbicaro',
-  'Aglianico del Taburno',
-  'Aversa Asprinio',
-  'Campi Flegrei',
-  'Capri',
-  'Castel San Lorenzo',
-  'Cilento',
-  'Costa d\'Amalfi'
-]
-
-wines = wines.concat(...Array(20).fill(wines))
 
 /******************************************************************************/
 // Styles
@@ -65,8 +40,6 @@ const Wine = styled.li.attrs({
   transition: background-color 250ms;
 
   width: 100%;
-
-
 `
 
 const ListStyle = styled.ul`
@@ -86,15 +59,66 @@ const WineColumn = Column.extend`
 // Main Component
 /******************************************************************************/
 
-const WineList = ({ children, ...props }) =>
-  <WineColumn {...props}>
-    <Filter />
-    <Scrollable y='auto'>
-      <ListStyle id='wine-list'>
-        {wines.map((wine, i) => <Wine key={i} data={wine} />)}
-      </ListStyle>
-    </Scrollable>
-  </WineColumn>
+class WineList extends React.Component {
+
+  static propTypes = {
+    client: object.isRequired
+  }
+
+  state = {
+    wines: [],
+    filter: ''
+  }
+
+  // State Setters
+
+  async getWines () {
+
+    const { client } = this.props
+
+    await client.untilConnected()
+
+    // get the wines however how
+  }
+
+  setFilter = filter => {
+
+    // In case it's an event
+    if (filter !== null && typeof filter === 'object')
+      filter = filter.target.value
+
+    if (typeof filter !== 'string')
+      filter = ''
+
+    this.setState({ filter })
+    window.localStorage.setItem('wine-filter', filter)
+  }
+
+  // LifeCycle
+
+  componentDidMount () {
+    this.getWines()
+
+    const wineFilter = window.localStorage.getItem('wine-filter')
+
+    this.setFilter(wineFilter)
+  }
+
+  render () {
+
+    const { wines, filter } = this.state
+
+    return <WineColumn>
+      <Filter value={filter} onChange={this.setFilter}/>
+      <Scrollable y='auto'>
+        <ListStyle id='wine-list'>
+          {wines.map((wine, i) => <Wine key={i} data={wine} />)}
+        </ListStyle>
+      </Scrollable>
+    </WineColumn>
+  }
+
+}
 
 /******************************************************************************/
 // Exports

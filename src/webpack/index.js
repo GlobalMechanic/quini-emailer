@@ -8,7 +8,8 @@ import './assets/quini-emailer.css'
 const dependencies = Promise.all([
   import('react'),
   import('react-dom'),
-  import('./ui')
+  import('./ui'),
+  import('./client')
 ])
 
 /******************************************************************************/
@@ -20,11 +21,16 @@ addEventListener(window, 'load', async () => {
   const [
     React,
     { render },
-    { default: Emails }
+    { default: EmailPicker },
+    { default: Client }
   ] = await dependencies
 
   const mainTag = document.getElementById('quini-emailer')
 
-  render(<Emails />, mainTag)
+  const client = new Client()
+
+  render(<EmailPicker client={client} />, mainTag)
+
+  await client.untilConnected()
 
 })

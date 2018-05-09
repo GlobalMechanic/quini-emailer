@@ -36,16 +36,30 @@ const View = Column.extend`
 // Main Component
 /******************************************************************************/
 
-const Emailer = ({ children, ...props }) =>
-  <PageStyle {...props}>
-    <Inspector>
-      <WineList />
-    </Inspector>
-    <View>
-      <TemplatePicker />
-      <AddressInput />
-    </View>
-  </PageStyle>
+class Emailer extends React.Component {
+
+  state = {
+    wine: null,
+    template: null
+  }
+
+  render () {
+
+    const { children, client, ...props } = this.props
+
+    const { wine, template } = this.state
+
+    return <PageStyle {...props}>
+      <Inspector>
+        <WineList client={client} />
+      </Inspector>
+      <View>
+        <TemplatePicker />
+        <AddressInput client={client} />
+      </View>
+    </PageStyle>
+  }
+}
 
 /******************************************************************************/
 // Exports

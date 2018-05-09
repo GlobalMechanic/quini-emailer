@@ -1,34 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { object } from 'prop-types'
+
 import { WHITE, BLUE } from '../../constants'
-
-/******************************************************************************/
-// Data
-/******************************************************************************/
-
-const ADDYS = [
-  'ben@globalmechanic.com',
-  'bruce@globalmechanic.com',
-  'brodie@globalmech,anic.com',
-  'pierre@quini.com',
-  'ben@globalmechanic.com',
-  'bruce@globalmechanic.com',
-  'brodie@globalmech,anic.com',
-  'pierre@quini.com',
-  'ben@globalmechanic.com',
-  'bruce@globalmechanic.com',
-  'brodie@globalmech,anic.com',
-  'pierre@quini.com',
-  'ben@globalmechanic.com',
-  'bruce@globalmechanic.com',
-  'brodie@globalmech,anic.com',
-  'pierre@quini.com',
-  'ben@globalmechanic.com',
-  'bruce@globalmechanic.com',
-  'brodie@globalmech,anic.com',
-  'pierre@quini.com'
-]
 
 /******************************************************************************/
 // Styled
@@ -95,20 +70,117 @@ const Input = styled.input`
   color: inherit;
 `
 
+const RemoveButton = styled.button.attrs({
+  children: 'x'
+})`
+
+  border: none;
+  background-color: transparent;
+  color: rgba(255,255,255, 0.5);
+  outline: none;
+  cursor: pointer;
+
+  transition: color 250ms;
+
+  &:hover {
+    color: rgba(255,255,255, 1)
+  }
+`
+
 /******************************************************************************/
 // Main Component
 /******************************************************************************/
 
-const AddressInput = ({ children, ...props }) =>
-  <Container {...props} id='address-input'>
-    <Title/>
-    <Addresses>
-      {[ADDYS.map((addy, i) => <Address key={i} >{addy}</Address>)]}
-      <Address>
-        <Input/>
-      </Address>
-    </Addresses>
-  </Container>
+class AddressInput extends React.Component {
+
+  static propTypes = {
+    client: object.isRequired
+  }
+
+  state = {
+    newClientEmail: '',
+    clients: []
+  }
+
+  // State Setters
+
+  getClients = async () => {
+
+    const { client } = this.props
+
+    await client.untilConnected()
+
+    const clients = await client.clients.find({})
+
+    this.setState({ clients })
+
+  }
+
+  addNewClient = async e => {
+
+    e.preventDefault()
+
+    const { client } = this.props
+
+    const { clients, newClientEmail } = this.state
+
+    const data = { email: newClientEmail }
+
+    this.setState({ clients: [ ...clients, data ], newClientEmail: '' })
+
+    await client.clients.create(data)
+
+    await this.getClients()
+
+  }
+
+  removeClient = async e => {
+
+    const id = e.target.dataset.clientId
+    if (typeof id !== 'string')
+      return
+
+    const { client } = this.props
+
+    // Optimistic prediction
+    const { clients } = this.state
+    this.setState({ clients: clients.filter(c => c.id !== id) })
+
+    await client.clients.remove(id)
+
+    return this.getClients()
+  }
+
+  setNewClientEmail = (e) =>
+    this.setState({ newClientEmail: e.target.value })
+
+  // LifeCycle
+
+  componentDidMount () {
+    this.getClients()
+  }
+
+  render () {
+
+    const { clients, newClientEmail } = this.state
+
+    return <Container id='address-input'>
+      <Title/>
+      <Addresses>
+        {[clients.map((obj, i) =>
+          <Address key={i} >{obj.email}
+            <RemoveButton onClick={this.removeClient} data-client-id={obj._id} />
+          </Address>
+        )]}
+        <Address>
+          <form onSubmit={this.addNewClient}>
+            <Input value={newClientEmail} onChange={this.setNewClientEmail}/>
+          </form>
+        </Address>
+      </Addresses>
+    </Container>
+  }
+}
 
 /******************************************************************************/
 // Exports
