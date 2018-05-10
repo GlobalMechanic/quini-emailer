@@ -1,10 +1,16 @@
 import App from '@benzed/app'
 
+import { emails } from './services'
+
 /******************************************************************************/
 // App
 /******************************************************************************/
 
 class QuiniEmailerServer extends App {
+
+  services = {
+    emails
+  }
 
 }
 

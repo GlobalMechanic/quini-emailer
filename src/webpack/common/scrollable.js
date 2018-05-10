@@ -3,16 +3,17 @@ import styled from 'styled-components'
 import { PURPLE } from '../../constants'
 
 /******************************************************************************/
-// Main Components
+// Style
 /******************************************************************************/
 
-const Scrollable = styled.div`
-
-  height: 100%;
-  width: 100%;
+const Scrollable = styled.div.attrs({
+  style: ({ width, height }) => Object({ width, height })
+})`
 
   overflow-y: ${props => props.y || 'hidden'};
   overflow-x: ${props => props.x || 'hidden'};
+
+  box-sizing: border-box;
 
   ::-webkit-scrollbar-thumb {
     background-color: ${PURPLE.toString()};

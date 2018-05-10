@@ -3,72 +3,13 @@ import styled from 'styled-components'
 
 import { object } from 'prop-types'
 
-import { WHITE, BLUE } from '../../constants'
+import { WHITE, BLUE, PURPLE } from '../../constants'
+
+import { Scrollable, Panel, Input, List } from '../common'
 
 /******************************************************************************/
 // Styled
 /******************************************************************************/
-
-const Container = styled.div`
-  box-sizing: border-box;
-
-
-  margin: 0.25em;
-  margin-top: auto;
-
-  border: 1px solid ${BLUE.toString()};
-  height: 20em;
-`
-
-const Title = styled.h2.attrs({ children: 'ADDRESS INPUT' })`
-  background-color: ${BLUE.toString()};
-  margin: 0;
-  padding: 0.25em;
-  color: white;
-`
-
-const Addresses = styled.div`
-  padding: 0.25em;
-  margin-top: 0.25em;
-  box-sizing: border-box;
-
-  width: 100%;
-  height: calc(100% - 3em);
-
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
-  align-content: flex-start;
-
-  overflow: auto;
-`
-
-const Address = styled.span`
-
-  background-color: ${BLUE.toString()};
-  color: ${WHITE.toString()};
-
-  padding: 0.5em;
-  border: none;
-  border-radius: 0.75em;
-  flex-grow: 0;
-  flex-shrink: 0;
-  height: 1em;
-
-  margin: 0.125em;
-
-`
-
-const Input = styled.input`
-  border: none;
-  border-bottom: 1px solid ${WHITE.toString()};
-  background-color: transparent;
-  outline: none;
-  width: auto;
-  color: inherit;
-`
 
 const RemoveButton = styled.button.attrs({
   children: 'x'
@@ -76,14 +17,17 @@ const RemoveButton = styled.button.attrs({
 
   border: none;
   background-color: transparent;
-  color: rgba(255,255,255, 0.5);
+  color: ${PURPLE.fade(0.5).toString()};
   outline: none;
   cursor: pointer;
+
+  margin-left: auto;
+  padding: 0 0 0 0.3em;
 
   transition: color 250ms;
 
   &:hover {
-    color: rgba(255,255,255, 1)
+    color: ${PURPLE.toString()};
   }
 `
 
@@ -98,87 +42,125 @@ class AddressInput extends React.Component {
   }
 
   state = {
-    newClientEmail: '',
-    clients: []
+    newAddress: '',
+    addresses: []
   }
 
   // State Setters
 
-  getClients = async () => {
+  getAddresses = async () => {
 
     const { client } = this.props
 
     await client.untilConnected()
 
-    const clients = await client.clients.find({})
+    const addresses = await client.addresses.find({})
 
-    this.setState({ clients })
+    this.setState({ addresses })
 
   }
 
-  addNewClient = async e => {
+  addNewAddress = async e => {
 
     e.preventDefault()
 
     const { client } = this.props
 
-    const { clients, newClientEmail } = this.state
+    const { addresses, newAddress } = this.state
 
-    const data = { email: newClientEmail }
+    if (newAddress.includes(' ') || !newAddress.includes('@'))
+      return
 
-    this.setState({ clients: [ ...clients, data ], newClientEmail: '' })
+    if (addresses.some(a => a._id === newAddress))
+      return
 
-    await client.clients.create(data)
+    const data = { _id: newAddress }
 
-    await this.getClients()
+    this.setState({
+      // optimistic caching
+      addresses: [ ...addresses, data ],
+      newAddress: ''
+    })
+
+    await client.addresses.create(data)
+    await this.getAddresses()
 
   }
 
-  removeClient = async e => {
+  removeAddress = async e => {
 
-    const id = e.target.dataset.clientId
+    e.stopPropagation()
+
+    const id = e.target.dataset.addressId
     if (typeof id !== 'string')
       return
 
     const { client } = this.props
 
     // Optimistic prediction
-    const { clients } = this.state
-    this.setState({ clients: clients.filter(c => c.id !== id) })
+    const { addresses } = this.state
+    this.setState({ clients: addresses.filter(c => c.id !== id) })
 
-    await client.clients.remove(id)
+    await client.addresses.remove(id)
 
-    return this.getClients()
+    return this.getAddresses()
   }
 
-  setNewClientEmail = (e) =>
-    this.setState({ newClientEmail: e.target.value })
+  setNewAddress = (e) =>
+    this.setState({ newAddress: e.target.value })
 
   // LifeCycle
 
   componentDidMount () {
-    this.getClients()
+    this.getAddresses()
+    // this.props.client.addresses.remove(null)
   }
 
   render () {
 
-    const { clients, newClientEmail } = this.state
+    const { selected, setSelected } = this.props
+    const { addresses, newAddress } = this.state
 
-    return <Container id='address-input'>
-      <Title/>
-      <Addresses>
-        {[clients.map((obj, i) =>
-          <Address key={i} >{obj.email}
-            <RemoveButton onClick={this.removeClient} data-client-id={obj._id} />
-          </Address>
-        )]}
-        <Address>
-          <form onSubmit={this.addNewClient}>
-            <Input value={newClientEmail} onChange={this.setNewClientEmail}/>
-          </form>
-        </Address>
-      </Addresses>
-    </Container>
+    return <Panel title='Addresses' color={PURPLE}>
+
+      <form onSubmit={this.addNewAddress}>
+        <Input
+          placeholder='...New Address'
+          color={PURPLE}
+          value={newAddress}
+          onChange={this.setNewAddress}
+        />
+      </form>
+
+      <Scrollable y='auto' height='calc(100vh - 10em)'>
+
+        <List id='wine-list'>
+          {addresses.map((address, i) =>
+            <List.Item
+              key={address._id}
+              color={PURPLE}
+              data-address-id={address._id}
+              selected={selected.includes(address._id)}
+              onClick={setSelected}
+            >
+
+              {address._id}
+
+              { !selected.includes(address._id)
+                ? <RemoveButton
+                  data-address-id={address._id}
+                  onClick={this.removeAddress}
+                />
+                : null
+              }
+            </List.Item>
+          )}
+        </List>
+
+      </Scrollable>
+
+    </Panel>
+
   }
 }
 

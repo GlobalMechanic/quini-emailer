@@ -1,19 +1,28 @@
 import styled from 'styled-components'
 
+import { WHITE } from '../../constants'
 /******************************************************************************/
 // Main Components
 /******************************************************************************/
 
-const Row = styled.div`
+const Panel = styled.div.attrs({
+  style: ({ margin }) => Object({
+    margin: `${margin}`
+  })
+})`
+
+  border: 0.05em outset #ccc;
+  border-radius: 0.125em;
+
+  background-color: ${WHITE.toString()};
+
   display: flex;
+  position: relative;
 
-  flex-shrink: 0;
-  flex-grow: 0;
-
-  box-sizing: border-box;
 `
+
 /******************************************************************************/
 // Exports
 /******************************************************************************/
 
-export default Row
+export default Panel

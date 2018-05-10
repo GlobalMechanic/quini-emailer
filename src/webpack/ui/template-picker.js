@@ -1,10 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { oneOf } from 'prop-types'
 
 import { RED, WHITE } from '../../constants'
-import { Row } from '../common'
+import { Panel, Column, Scrollable } from '../common'
 
 /******************************************************************************/
 // Data
@@ -28,17 +28,27 @@ const ICONS = TEMPLATE_NAMES.reduce((obj, name) => {
 /******************************************************************************/
 
 const Template = styled.img.attrs({
-  src: props => ICONS[props.template]
+  src: props => ICONS[props['data-template']]
 })`
   padding: 0.25em;
   margin: 0.25em;
 
-  opacity: 0.75;
   cursor: pointer;
 
-  &:hover {
-    opacity: 1;
-  }
+  ${props => !props.selected
+    ? css`
+      opacity: 0.50;
+      &:hover {
+        opacity: 0.75;
+      }`
+
+    : css`
+      opacity: 1;
+      pointer-events: none;
+    `}
+
+  height: ${9 * 1.25}em;
+  width: ${16 * 1.25}em;
 
   transition: opacity 250ms;
 
@@ -49,32 +59,33 @@ Template.propTypes = {
   template: oneOf(TEMPLATE_NAMES).isRequired
 }
 
-const TemplateHolder = Row.extend`
-  width: 100%;
-  flex-wrap: wrap;
-  align-items: center;
-  overflow-y: auto;
-`
-
-const Title = styled.h1.attrs({ children: 'TEMPLATES' })`
-  margin: 0 0.125em 0 0.125em;
-  background-color: ${RED.toString()};
-  padding: 0.25em;
-  color: ${WHITE.toString()};
-`
-
 /******************************************************************************/
 // Main Component
 /******************************************************************************/
 
-const TemplatePicker = ({ children, ...props }) => [
-  <Title key='title'/>,
-  <TemplateHolder key='templates' {...props} id='template-picker'>
-    {TEMPLATE_NAMES.map(name =>
-      <Template key={name} template={name} />
-    )}
-  </TemplateHolder>
-]
+class TemplatePicker extends React.Component {
+
+  render () {
+
+    const { template, setTemplate } = this.props
+
+    return <Panel color={RED} title='Template'>
+      <Scrollable y='auto' height='calc(100vh - 8em)'>
+        <Column>
+          {TEMPLATE_NAMES.map(name =>
+            <Template
+              key={name}
+              selected={template === name}
+              data-template={name}
+              onClick={setTemplate}
+            />
+          )}
+        </Column>
+      </Scrollable>
+    </Panel>
+  }
+
+}
 
 /******************************************************************************/
 // Exports

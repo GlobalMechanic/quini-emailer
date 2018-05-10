@@ -1,0 +1,47 @@
+{
+    "eye": {
+        "rim":"Clear",
+        "depth":"Translucent"
+    },
+    "nose": {
+        "aromas":[
+            "Lychee",
+            "Pineapple",
+            "Lemon",
+            "Yeast",
+            "Butter",
+            "Almond"
+        ]
+    },
+    "mouth": {
+        "flavours":[
+            "Lychee",
+            "Pineapple",
+            "Lemon",
+            "Yeast",
+            "Butter",
+            "Almond"
+        ],
+        "sweetness":"Flat",
+        "acidity":"Fresh",
+        "alcohol":"Mild"
+    },
+    "finish": {
+        "duration":"Long",
+        "quality":"Good",
+        "peaktime":"Middle"
+    },
+    "overall": {
+        "complexity":"Complex",
+        "interest":"Memorable",
+        "typicity":"Unusual",
+        "balance":"Harmonious"
+    },
+    "textReviews": {
+        "eye":"Clear rim, Translucent depth",
+        "nose":"Lychee, Pineapple, Lemon, Yeast, Butter, Almond aromas",
+        "mouth":"Lychee, Pineapple, Lemon, Yeast, Butter, Almond flavours, Flat sweetness, Fresh acidity, Mild alcohol",
+        "finish":"Long duration, Good quality, Middle peaktime",
+        "overall":"Complex complexity, Memorable interest, Unusual typicity, Harmonious balance"
+    }
+}

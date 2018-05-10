@@ -25,8 +25,8 @@ class Client {
     return this.feathers.service('users')
   }
 
-  get clients () {
-    return this.feathers.service('clients')
+  get addresses () {
+    return this.feathers.service('addresses')
   }
 
   untilConnected () {

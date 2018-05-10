@@ -1,59 +1,16 @@
 import React from 'react'
 
-import styled from 'styled-components'
 import { object } from 'prop-types'
+import { Input, List, Panel, Scrollable } from '../common'
 
-import { Column, Scrollable } from '../common'
-
-import { BLUE, PURPLE, WHITE } from '../../constants'
+import { BLUE } from '../../constants'
+import DUMMY_WINE from '../assets/dummy-data/wine-object'
 
 /******************************************************************************/
-// Styles
+// Data
 /******************************************************************************/
 
-const Filter = styled.input.attrs({
-  placeholder: '...Filter'
-})`
-  box-sizing: border-box;
-  background-color: ${BLUE.toString()};
-  border: none;
-  outline: none;
-  color: ${WHITE.toString()};
-  ::placeholder {
-    color: ${WHITE.toString()};
-    opacity: 0.5;
-  }
-  padding: 0.25em;
-
-  width: calc(100%);
-`
-
-const Wine = styled.li.attrs({
-  children: props => props.data
-})`
-  cursor: pointer;
-  &:hover {
-    background-color: ${PURPLE.fade(0.75).toString()};
-  }
-
-  padding: 0.25em;
-  transition: background-color 250ms;
-
-  width: 100%;
-`
-
-const ListStyle = styled.ul`
-  box-sizing: border-box;
-  list-style-type: none;
-  margin: 0;
-  padding: 0.5em;
-
-  border-right: 1px solid ${BLUE.toString()};
-`
-
-const WineColumn = Column.extend`
-  height: 100%;
-`
+const DUMMY_WINES = Array(1).fill(DUMMY_WINE)
 
 /******************************************************************************/
 // Main Component
@@ -66,7 +23,7 @@ class WineList extends React.Component {
   }
 
   state = {
-    wines: [],
+    wines: DUMMY_WINES,
     filter: ''
   }
 
@@ -91,6 +48,7 @@ class WineList extends React.Component {
       filter = ''
 
     this.setState({ filter })
+
     window.localStorage.setItem('wine-filter', filter)
   }
 
@@ -108,14 +66,31 @@ class WineList extends React.Component {
 
     const { wines, filter } = this.state
 
-    return <WineColumn>
-      <Filter value={filter} onChange={this.setFilter}/>
-      <Scrollable y='auto'>
-        <ListStyle id='wine-list'>
-          {wines.map((wine, i) => <Wine key={i} data={wine} />)}
-        </ListStyle>
+    const { wine: selectedWine, setWine } = this.props
+
+    return <Panel color={BLUE} title='Wine'>
+      <Input
+        placeholder='...Filter'
+        color={BLUE}
+        value={filter}
+        onChange={this.setFilter}
+      />
+      <Scrollable y='auto' height='calc(100vh - 10em)'>
+        <List id='wine-list'>
+          {wines.map((wine, i) =>
+            <List.Item
+              key={wine._id}
+              color={BLUE}
+              data-wine-id={wine._id}
+              selected={selectedWine && selectedWine._id === wine._id}
+              onClick={() => setWine(wine)}
+            >
+              {wine.Name}
+            </List.Item>
+          )}
+        </List>
       </Scrollable>
-    </WineColumn>
+    </Panel>
   }
 
 }

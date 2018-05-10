@@ -1,19 +1,29 @@
 import styled from 'styled-components'
 
+import { WHITE, FONT } from '../../constants'
+
 /******************************************************************************/
 // Main Components
 /******************************************************************************/
 
-const Row = styled.div`
-  display: flex;
-
-  flex-shrink: 0;
-  flex-grow: 0;
+const Container = styled.div`
+  width: 875px;
+  height: 550px;
+  border: 1px solid black;
+  background-color: ${WHITE.toString()};
 
   box-sizing: border-box;
+
+  font-family: ${FONT};
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
 `
+
 /******************************************************************************/
 // Exports
 /******************************************************************************/
 
-export default Row
+export default Container

@@ -2,7 +2,7 @@
   "port": 5400,
 
   "socketio": true,
-  "auth": true,
+  "auth": false,
   "rest": true,
 
   "mongodb": {
@@ -12,7 +12,7 @@
 
   "services": {
     "users": true,
-    "clients": true,
+    "addresses": true,
     "emails": true
   }
 }

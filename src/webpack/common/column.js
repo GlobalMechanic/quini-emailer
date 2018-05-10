@@ -6,7 +6,12 @@ import styled from 'styled-components'
 
 const Column = styled.div`
   display: flex;
+
   flex-direction: column;
+  flex-shrink: 0;
+  flex-grow: 0;
+
+  box-sizing: border-box;
 `
 /******************************************************************************/
 // Exports

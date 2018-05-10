@@ -1,0 +1,150 @@
+// for your sanity, a pared down version of an aggregate object with the endless streams of numbers replaced by descriptive strings.
+
+{
+   "scoreSum":[
+        978, 954, 985, 957, 943
+    ],
+    "scoreCount":[
+        11, 11, 11, 11, 11
+    ],
+   "scoreAvg": [
+      "Eye Appeal (NUM)",
+      "Nose Appeal (NUM)",
+      "Mouth Appeal (NUM)",
+      "Finish Appeal (NUM)",
+      "Opinion Appeal (NUM)"
+   ],
+   "characterSum":[
+      1003, 836, 856, 831, 876
+   ],
+   "characterCount":[
+      11,11,11,11,11
+   ],
+   "characterAvg":[
+      "Eye Complexity (NUM)",
+      "Nose Complexity (NUM)",
+      "Mouth Complexity (NUM)",
+      "Finish Complexity (NUM)",
+      "Opinion Complexity (NUM)"
+   ],
+   "aromaCount":[
+    "... array of number ..."
+   ],
+   "aromaSum":[
+         "... array of number ..."
+   ],
+   "aromaAvg":[
+          "... array of number ..."
+   ],
+   "flavourCount":[
+         "... array of number ..."
+   ],
+   "flavourSum":[
+          "... array of number ..."
+   ],
+   "flavourAvg":[
+          "... array of number ..."
+   ],
+   "qnoteCount":[
+          "... array of number ..."
+   ],
+   "qnoteSum":[
+          "... array of number ..."
+   ],
+   "qnoteAvg":[
+         "... array of number ..."
+   ],
+   "Eye":{
+      "DepthAvg":5.727309090909091,
+      "DepthCount":11,
+      "DepthSum":63.0004,
+      "EffervescenceNumberAvg":0,
+      "EffervescenceNumberCount":0,
+      "EffervescenceNumberSum":0,
+      "RimAvg":22.090936363636363,
+      "RimCount":11,
+      "RimSum":243.0003,
+      "ColourAvg":36.18182727272727,
+      "ColourCount":11,
+      "ColourSum":398.0001,
+      "EffervescenceSpeedAvg":0,
+      "EffervescenceSpeedCount":0,
+      "EffervescenceSpeedSum":0,
+      "EffervescenceSizeAvg":0,
+      "EffervescenceSizeCount":0,
+      "EffervescenceSizeSum":0
+   },
+   "Mouth":{
+      "AlcoholAvg":50.81819090909091,
+      "AlcoholCount":11,
+      "AlcoholSum":559.0001,
+      "TanninsAvg":62.90909090909091,
+      "TanninsCount":11,
+      "TanninsSum":692,
+      "AcidityAvg":61.81818181818182,
+      "AcidityCount":11,
+      "AciditySum":680,
+      "SweetnessAvg":57.45455454545454,
+      "SweetnessCount":11,
+      "SweetnessSum":632.0001,
+      "QualityPIDs":[
+             "... array of number ..."
+      ]
+   },
+   "Finish":{
+      "PeakTimeAvg":53.18181818181818,
+      "PeakTimeCount":11,
+      "PeakTimeSum":585,
+      "DurationAvg":77.0909090909091,
+      "DurationCount":11,
+      "DurationSum":848,
+      "QualityAvg":71.81818181818181,
+      "QualityCount":11,
+      "QualitySum":790
+   },
+   "Overall":{
+      "BalanceAvg":85,
+      "BalanceCount":11,
+      "BalanceSum":935,
+      "ComplexitySliderAvg":79.9090909090909,
+      "ComplexitySliderCount":11,
+      "ComplexitySliderSum":879,
+      "TypicityAvg":63.45455454545454,
+      "TypicityCount":11,
+      "TypicitySum":698.0001,
+      "InterestAvg":76.8,
+      "InterestCount":10,
+      "InterestSum":768
+   },
+   "wine":{
+      "_id":"593b1e9066f86dbd042fb5ff",
+      "aggregate":"593b1e9066f86dbd042fb5ff",
+      "nameClean":"Chateau Montus Madiran Brumont Tannat, Cabernet Sauvignon",
+      "Name":"Chateau Montus Madiran",
+      "Winery":"Brumont",
+      "vintage":"2011",
+      "Country":"France",
+      "Province":"",
+      "Area":"Southwest France",
+      "Style":"",
+      "Tags":"",
+      "Type":"Red",
+      "dataProvenance":"approved-mag_wines.csv",
+      "__v":0,
+      "creationDate":"2017-06-09T22:17:52.004Z",
+      "UserSubmitted":false,
+      "Modifiers":[
+         "Blend"
+      ],
+      "Varietal":"Tannat, Cabernet Sauvignon",
+      "Year":"2011",
+      "id":"593b1e9066f86dbd042fb5ff"
+   },
+   "additionalInfo":{
+
+   },
+   "rating":85.02327045714286,
+   "count":11
+}
+]
+}

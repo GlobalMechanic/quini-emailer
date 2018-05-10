@@ -17,3 +17,5 @@ export const RED = new Color('#9B2C22')
 export const WHITE = new Color('#fff')
 
 export const BLACK = new Color('#000')
+
+export const FONT = 'SuperGrotesk'

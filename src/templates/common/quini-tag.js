@@ -1,17 +1,26 @@
-import React from 'react'
-import { Email } from 'react-html-email'
+import styled from 'styled-components'
+
+import { BLACK } from '../../constants'
 
 /******************************************************************************/
-// Main Component
+// Sub Components
 /******************************************************************************/
 
-const ConsumerOpinionOnThisWine = ({ children, ...props }) =>
-  <Email {...props}>
-    {children}
-  </Email>
+const QuiniTag = styled.div.attrs({
+  children: 'QUINI'
+})`
+  color: ${BLACK.toString()};
+
+  position: absolute;
+  bottom: 0.125em;
+  right: 0.5em;
+
+  font-size: 2.4em;
+  font-weight: bold;
+`
 
 /******************************************************************************/
 // Exports
 /******************************************************************************/
 
-export default ConsumerOpinionOnThisWine
+export default QuiniTag

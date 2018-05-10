@@ -2,3 +2,19 @@
   width: 100vw;
   height: 100vh;
 }
+
+@font-face {
+	font-family: 'SuperGrotesk';
+	src: url('./SuperGroteskWeb-Medium.eot?#iefix') format('embedded-opentype'),
+		url('./SuperGroteskWeb-Medium.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SuperGrotesk';
+	src: url('./SuperGroteskWeb.eot?#iefix') format('embedded-opentype'),
+		url('./SuperGroteskWeb.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}

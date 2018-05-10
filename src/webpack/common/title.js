@@ -1,17 +1,22 @@
-import React from 'react'
-import { Email } from 'react-html-email'
+import styled from 'styled-components'
+
+import { WHITE } from '../../constants'
 
 /******************************************************************************/
-// Main Component
+// Main Components
 /******************************************************************************/
 
-const DetailedWineReview = ({ children, ...props }) =>
-  <Email {...props}>
-    {children}
-  </Email>
+const Title = styled.h2`
+  margin: 0.125em 0 0.125em 0;
+  background-color: ${props => String(props.color)};
+  padding: 0.25em;
+  color: ${WHITE.toString()};
+
+  text-transform: uppercase;
+`
 
 /******************************************************************************/
 // Exports
 /******************************************************************************/
 
-export default DetailedWineReview
+export default Title
