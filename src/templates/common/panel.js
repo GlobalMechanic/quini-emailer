@@ -19,6 +19,8 @@ const Panel = styled.div.attrs({
   display: flex;
   position: relative;
 
+  overflow: hidden;
+
 `
 
 /******************************************************************************/

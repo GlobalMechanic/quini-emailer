@@ -18,7 +18,7 @@ const WineDescriptionBase = styled.div`
   flex-direction: column;
   flex-grow: 0;
   flex-shrink: 0;
-  
+
   width: 14.5em;
 `
 
@@ -73,7 +73,6 @@ const Origin = ({ wine }) => {
 /******************************************************************************/
 
 const WineDescription = ({ children, wine, aggregate, ...props }) =>
-  console.log(wine, aggregate.value) ||
   <WineDescriptionBase {...props}>
     <Flower wine={wine}/>
     <Data wine={wine} path='Name' />

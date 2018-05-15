@@ -1,15 +1,5 @@
-import { Service, Hook } from '@benzed/app'
-
-/******************************************************************************/
-// Hooks
-/******************************************************************************/
-
-const webshotHook = new Hook({
-
-  before: 'all',
-  priority: 0
-
-})
+import { Service } from '@benzed/app'
+import { webshot } from './hooks'
 
 /******************************************************************************/
 // Main
@@ -17,12 +7,14 @@ const webshotHook = new Hook({
 
 class EmailService extends Service {
 
-  hooks () {
-    super.hooks()
+  addHooks (config, app) {
 
-    return [
-      webshotHook
-    ]
+    const saveUrl = config['save-url']
+
+    this.before({
+      create: [ webshot(saveUrl) ]
+    })
+
   }
 
 }
@@ -31,4 +23,4 @@ class EmailService extends Service {
 // Exports
 /******************************************************************************/
 
-export default new EmailService()
+export default EmailService

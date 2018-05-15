@@ -8,6 +8,6 @@ const { WebpackConfig } = require('@benzed/dev')
 /******************************************************************************/
 
 module.exports = new WebpackConfig({
-  output: path.resolve(__dirname, '../dist/public'),
+  output: path.resolve(__dirname, './dist/public'),
   port: 6200
 })

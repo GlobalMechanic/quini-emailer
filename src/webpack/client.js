@@ -1,6 +1,7 @@
 // import { observe } from 'mobx'
 import feathers from '@feathersjs/client'
 import io from 'socket.io-client'
+
 /******************************************************************************/
 // TODO
 /******************************************************************************/
@@ -17,8 +18,10 @@ class Client {
     const socket = io(HOST)
     this.feathers = feathers()
       .configure(feathers.socketio(socket))
+  }
 
-    console.log(this.feathers)
+  get emails () {
+    return this.feathers.service('emails')
   }
 
   get users () {
@@ -31,12 +34,10 @@ class Client {
 
   untilConnected () {
     return new Promise(resolve => {
-
       if (this.feathers.io.connected)
         resolve()
 
       this.feathers.io.once('connect', () => resolve())
-
     })
   }
 

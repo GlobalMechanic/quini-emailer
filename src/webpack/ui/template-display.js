@@ -34,10 +34,7 @@ class TemplateDisplay extends React.Component {
   render () {
 
     const { template, wine } = this.props
-
     const { aggregate } = this.state
-
-    console.log(template, wine, aggregate)
 
     const Template = TEMPLATES[template]
     if (!Template || !wine || !aggregate)

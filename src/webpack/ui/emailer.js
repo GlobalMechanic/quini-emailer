@@ -8,7 +8,7 @@ import WineList from './wine-list'
 
 import { Column, Row } from '../common'
 
-import { BLACK, WHITE, BLUE } from '../../constants'
+import { PURPLE, BLACK, WHITE, BLUE } from '../../constants'
 
 /******************************************************************************/
 // Styles
@@ -36,6 +36,30 @@ const Title = styled.h1.attrs({
   width: 100%;
   margin: 0 0 0.25em 0;
   color: ${BLACK.toString()}
+`
+
+/******************************************************************************/
+// Create Email
+/******************************************************************************/
+
+const CreateButton = styled.button.attrs({
+  children: 'Send'
+})`
+  background-color: ${PURPLE.toString()};
+  color: ${WHITE.toString()};
+
+  width: 6em;
+  height: 2em;
+  margin-top: 0.25em;
+
+  border: none;
+  outline: none;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${PURPLE.fade(0.5).toString()}
+  }
 `
 
 /******************************************************************************/
@@ -81,6 +105,17 @@ class Emailer extends React.Component {
     window.localStorage.setItem('addresses', JSON.stringify(addresses))
   }
 
+  // Network
+
+  createEmail = async e => {
+    const { wine, template, addresses } = this.state
+    const { client } = this.props
+
+    const created = await client.emails.create({ wine, template, addresses })
+
+    console.log(created)
+  }
+
   // Life Cycle
 
   componentDidMount () {
@@ -100,6 +135,8 @@ class Emailer extends React.Component {
       addresses = JSON.parse(addresses)
       this.setState({ addresses })
     }
+
+    this.props.client.emails.find({}).then(::console.log)
 
   }
 
@@ -132,10 +169,14 @@ class Emailer extends React.Component {
           setSelected={this.setAddresses}
         />
 
-        <TemplateDisplay
-          wine={wine}
-          template={template}
-        />
+        <Column>
+          <TemplateDisplay
+            wine={wine}
+            template={template}
+          />
+
+          <CreateButton onClick={this.createEmail} />
+        </Column>
 
       </View>
 

@@ -18,7 +18,7 @@ const ConsumerResponse = ({ children, wine, aggregate, ...props }) =>
   >
     <WineRating
       expectation='high'
-      ratingName='Actual WineRating'
+      ratingName='Actual Rating'
       ratingValue='80'
     />
   </BaseWine>

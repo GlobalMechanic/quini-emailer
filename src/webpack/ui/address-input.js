@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { object } from 'prop-types'
 
-import { WHITE, BLUE, PURPLE } from '../../constants'
+import { PURPLE } from '../../constants'
 
 import { Scrollable, Panel, Input, List } from '../common'
 

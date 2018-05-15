@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 
 import { oneOf } from 'prop-types'
 
-import { RED, WHITE } from '../../constants'
+import { RED } from '../../constants'
 import { Panel, Column, Scrollable } from '../common'
 
 /******************************************************************************/
@@ -13,9 +13,9 @@ import { Panel, Column, Scrollable } from '../common'
 const TEMPLATE_NAMES = [
   'consumer-opinion',
   'consumer-response',
+  'wine-review',
   'most-popular-aromas',
-  'most-popular-flavours',
-  'wine-review'
+  'most-popular-flavours'
 ]
 
 const ICONS = TEMPLATE_NAMES.reduce((obj, name) => {
