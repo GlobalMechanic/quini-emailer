@@ -30,7 +30,7 @@ const toObject = value =>
 const BINARY = 'binary'
 
 const WEBSHOT_OPTIONS = {
-  siteType: 'html',
+  siteType: 'html'
   // windowSize: {
   //   width: 800,
   //   height: 600
@@ -60,12 +60,12 @@ function createHtmlTemplate (app) {
   bodyOpen = bodyOpen[1]
   const headClose = '</head>'
 
-  return (wine, template) => {
+  return (fields, template) => {
 
     const Template = TEMPLATES[template]
     const sheet = new ServerStyleSheet()
     const reacted = renderToString(
-      sheet.collectStyles(<Template wine={wine}/>)
+      sheet.collectStyles(<Template fields={fields}/>)
     )
 
     const styles = sheet.getStyleTags()
@@ -99,14 +99,14 @@ function exec (ctx) {
   this.checkContext(ctx)
 
   const { result, app } = ctx
-  const { _id, wine, template } = result
+  const { _id, fields, template } = result
 
   const { saveUrl } = this.options
 
   if (!this.createHtml)
     this.createHtml = createHtmlTemplate(app)
 
-  const html = this.createHtml(wine, template)
+  const html = this.createHtml(fields, template)
   const render = webshot(html, WEBSHOT_OPTIONS)
 
   const file = fs.createWriteStream(

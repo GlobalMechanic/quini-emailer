@@ -6,6 +6,8 @@ import TemplateDisplay from './template-display'
 import AddressInput from './address-input'
 import WineList from './wine-list'
 
+import buildFields from '../quini-query'
+
 import { Column, Row } from '../common'
 
 import { PURPLE, BLACK, WHITE, BLUE } from '../../constants'
@@ -71,14 +73,24 @@ class Emailer extends React.Component {
   state = {
     wine: null,
     template: null,
+    fields: {},
     addresses: []
   }
 
   // State
 
+  async setFields () {
+    const { wine, template } = this.state
+
+    const fields = await buildFields(wine, template)
+
+    this.setState({ fields })
+  }
+
   setWine = wine => {
     this.setState({ wine })
     window.localStorage.setItem('wine', JSON.stringify(wine))
+    this.setFields()
   }
 
   setTemplate = e => {
@@ -88,12 +100,11 @@ class Emailer extends React.Component {
 
     this.setState({ template })
     window.localStorage.setItem('template', template)
+    this.setFields()
   }
 
   setAddresses = e => {
-
     const addressId = e.target.dataset.addressId
-
     let { addresses } = this.state
 
     if (addresses.includes(addressId))
@@ -108,12 +119,10 @@ class Emailer extends React.Component {
   // Network
 
   createEmail = async e => {
-    const { wine, template, addresses } = this.state
+    const { fields, template, addresses } = this.state
     const { client } = this.props
 
-    const created = await client.emails.create({ wine, template, addresses })
-
-    console.log(created)
+    await client.emails.create({ fields, template, addresses })
   }
 
   // Life Cycle
@@ -136,7 +145,7 @@ class Emailer extends React.Component {
       this.setState({ addresses })
     }
 
-    this.props.client.emails.find({}).then(::console.log)
+    setTimeout(() => this.setFields(), 50)
 
   }
 
@@ -144,7 +153,7 @@ class Emailer extends React.Component {
 
     const { children, client, ...props } = this.props
 
-    const { wine, template, addresses } = this.state
+    const { fields, wine, template, addresses } = this.state
 
     return <PageStyle {...props}>
 
@@ -170,10 +179,7 @@ class Emailer extends React.Component {
         />
 
         <Column>
-          <TemplateDisplay
-            wine={wine}
-            template={template}
-          />
+          <TemplateDisplay fields={fields} template={template} />
 
           <CreateButton onClick={this.createEmail} />
         </Column>

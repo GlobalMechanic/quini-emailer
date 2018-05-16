@@ -56,7 +56,7 @@ const Template = styled.img.attrs({
 `
 
 Template.propTypes = {
-  template: oneOf(TEMPLATE_NAMES).isRequired
+  template: oneOf(TEMPLATE_NAMES)
 }
 
 /******************************************************************************/

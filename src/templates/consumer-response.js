@@ -8,19 +8,19 @@ import { WineRating } from './common'
 // Main Component
 /******************************************************************************/
 
-const ConsumerResponse = ({ children, wine, aggregate, ...props }) =>
+const ConsumerResponse = ({ children, fields, ...props }) =>
 
   <BaseWine
     title='Consumer Response To This Wine'
-    wine={wine}
-    aggregate={aggregate}
     panelMargin='1em 0em 0em 5em'
-  >
+    fields={fields}>
+
     <WineRating
-      expectation='high'
+      expectation={fields.expectation}
       ratingName='Actual Rating'
-      ratingValue='80'
+      ratingValue={fields.rating}
     />
+
   </BaseWine>
 
 /******************************************************************************/

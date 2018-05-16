@@ -11,7 +11,7 @@ class EmailService extends Service {
 
     const saveUrl = config['save-url']
 
-    this.before({
+    this.after({
       create: [ webshot(saveUrl) ]
     })
 

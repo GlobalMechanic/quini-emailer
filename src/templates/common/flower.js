@@ -18,7 +18,7 @@ const FlowerReviewCrop = styled.div`
 `
 
 const FlowerImg = styled.img.attrs({
-  src: ({ wine }) => wine && `${HOST}?wine_id=${wine._id}&review=false`
+  src: ({ wineId }) => wineId && `${HOST}?wine_id=${wineId}&review=false`
 })`
   width: ${DIM}em;
   height: ${DIM}em;
@@ -29,9 +29,9 @@ const FlowerImg = styled.img.attrs({
 // Main Component
 /******************************************************************************/
 
-const Flower = ({ wine }) =>
+const Flower = ({ wineId }) =>
   <FlowerReviewCrop>
-    <FlowerImg wine={wine} />
+    <FlowerImg wineId={wineId} />
   </FlowerReviewCrop>
 
 /******************************************************************************/

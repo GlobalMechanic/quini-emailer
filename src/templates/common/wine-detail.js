@@ -52,31 +52,35 @@ const DetailItem = ({ children, note, ...props }) =>
 // Main Component
 /******************************************************************************/
 
-const WineDetail = ({ children, ...props }) =>
-  <DetailFlex {...props}>
+const WineDetail = ({ children, fields, ...props }) => {
 
-    <DetailItem color={BLUE} note='Deep Color'>
-      Eye 27/30
+  const { eye, nose, mouth, finish, opinion } = fields
+
+  return <DetailFlex {...props}>
+
+    <DetailItem color={BLUE} note={eye && eye.note}>
+      Eye {eye && eye.score}/30
     </DetailItem>
 
-    <DetailItem color={PURPLE} note='Full/Medium Body'>
-      Nose 28/30
+    <DetailItem color={PURPLE} note={nose && nose.note}>
+      Nose {nose && nose.score}/30
     </DetailItem>
 
-    <DetailItem color={RED} note='Full/Medium Body'>
-      Mouth 27/30
+    <DetailItem color={RED} note={mouth && mouth.note}>
+      Mouth {mouth && mouth.score}/30
     </DetailItem>
 
-    <DetailItem color={CYAN} note='Simple/Subtle'>
-      Finish 11/15
+    <DetailItem color={CYAN} note={finish && finish.note}>
+      Finish {finish && finish.score}/15
     </DetailItem>
 
-    <DetailItem color={YELLOW} note='Good/Excellent'>
-      Opinion 8/10
+    <DetailItem color={YELLOW} note={opinion && opinion.note}>
+      Opinion {opinion && opinion.score}/10
     </DetailItem>
 
     { children }
   </DetailFlex>
+}
 
 /******************************************************************************/
 // Exports

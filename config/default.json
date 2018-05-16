@@ -3,7 +3,9 @@
 
   "socketio": true,
   "auth": false,
-  "rest": true,
+  "rest": {
+    "public": "./dist/public"
+  },
 
   "mongodb": {
     "database": "quini-emailer",
@@ -13,6 +15,8 @@
   "services": {
     "users": true,
     "addresses": true,
-    "emails": true
+    "emails": {
+      "save-url": "./storage"
+    }
   }
 }

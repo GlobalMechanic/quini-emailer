@@ -8,17 +8,16 @@ import { WineDetail } from './common'
 // Main Component
 /******************************************************************************/
 
-const WineReview = ({ children, wine, aggregate, ...props }) =>
+const WineReview = ({ children, fields, ...props }) =>
 
   <BaseWine
     title='Detailed Wine Review'
-    subTitle='Expectations: HIGH'
+    subTitle={`Expectations: ${fields.expectation}`}
     titleAlign='flex-start'
-    wine={wine}
-    aggregate={aggregate}
+    fields={fields}
     panelMargin='0em 9em 0em 5em'
   >
-    <WineDetail wine={wine} aggregate={aggregate} />
+    <WineDetail fields={fields} />
   </BaseWine>
 
 /******************************************************************************/

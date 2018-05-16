@@ -8,8 +8,7 @@ import { RED } from '../constants'
 /******************************************************************************/
 
 const BaseWine = ({
-  wine,
-  aggregate,
+  fields,
   title,
   titleAlign,
   subTitle,
@@ -32,7 +31,7 @@ const BaseWine = ({
     </Title>
 
     <Panel margin={panelMargin}>
-      <WineDescription wine={wine} aggregate={aggregate}/>
+      <WineDescription fields={fields} />
       { children }
     </Panel>
 

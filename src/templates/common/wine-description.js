@@ -6,6 +6,7 @@ import { get } from '@benzed/immutable'
 import { BLACK } from '../../constants'
 
 import Flower from './flower'
+
 /******************************************************************************/
 // Sub Components
 /******************************************************************************/
@@ -37,21 +38,21 @@ const ThinLabel = Label.extend`
   font-weight: normal;
 `
 
-const Data = ({ wine, path, Component = Label, ...props }) => {
+const Data = ({ fields, path, Component = Label, ...props }) => {
 
-  const data = get(wine, path)
+  const data = get(fields, path)
   if (!data)
     return null
 
   return <Component {...props}>{data}</Component>
 }
 
-const Origin = ({ wine }) => {
+const Origin = ({ fields }) => {
 
   const origin = [
-    get(wine, 'Winery'),
-    get(wine, 'Area'),
-    get(wine, 'Country')
+    get(fields, 'winery'),
+    get(fields, 'area'),
+    get(fields, 'country')
   ]
     .filter(a => a)
     .join(', ')
@@ -72,29 +73,31 @@ const Origin = ({ wine }) => {
 // Main Component
 /******************************************************************************/
 
-const WineDescription = ({ children, wine, aggregate, ...props }) =>
+const WineDescription = ({ children, fields, ...props }) =>
   <WineDescriptionBase {...props}>
-    <Flower wine={wine}/>
-    <Data wine={wine} path='Name' />
-    <Data wine={wine}
+    <Flower wineId={fields.wineId}/>
+    <Data fields={fields}
+      path='name'
+    />
+    <Data fields={fields}
       path='vintage'
       Component={ThinLabel}
       fade={0.25}
       size={1.8}
     />
-    <Data wine={wine}
-      path='Varietal'
+    <Data fields={fields}
+      path='varietal'
       fade={0.5}
       size={0.9}
     />
-    <Data wine={wine}
-      path='Winery'
+    <Data fields={fields}
+      path='winery'
       Component={ThinLabel}
       fade={0.5}
       size={0.9}
     />
 
-    <Origin wine={wine}/>
+    <Origin fields={fields}/>
 
     <ThinLabel fade={0.7} size={0.8}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor
