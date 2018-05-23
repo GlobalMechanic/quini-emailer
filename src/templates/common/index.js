@@ -2,6 +2,7 @@ import Container from './container'
 import Title from './title'
 import Panel from './panel'
 import Bottle from './bottle'
+import Blob from './blob'
 import QuiniTag from './quini-tag'
 
 import WineDetail from './wine-detail'
@@ -14,6 +15,7 @@ export {
   Panel,
   QuiniTag,
   Bottle,
+  Blob,
   WineDetail,
   WineRating,
   WineDescription

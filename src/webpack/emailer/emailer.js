@@ -3,13 +3,15 @@ import styled from 'styled-components'
 
 import TemplatePicker from './template-picker'
 import TemplateDisplay from './template-display'
-import AddressInput from './address-input'
+
+import ManualFields from './manual-fields'
 import WineList from './wine-list'
+
+// import AddressInput from './address-input'
 
 import buildFields from '../quini-query'
 
 import { Column, Row } from '../common'
-
 import { PURPLE, BLACK, WHITE, BLUE } from '../../constants'
 
 /******************************************************************************/
@@ -74,6 +76,7 @@ class Emailer extends React.Component {
     wine: null,
     template: null,
     fields: {},
+    manualFields: {},
     addresses: []
   }
 
@@ -116,13 +119,32 @@ class Emailer extends React.Component {
     window.localStorage.setItem('addresses', JSON.stringify(addresses))
   }
 
+  setManualFields = e => {
+
+    const { field, option } = e.target.dataset
+
+    const value = field === 'color'
+      ? option
+      : e.target.value
+
+    const { manualFields } = this.state
+
+    const newManualFields = {
+      ...manualFields,
+      [field]: value
+    }
+
+    window.localStorage.setItem('manual-fields', JSON.stringify(newManualFields))
+
+    this.setState({
+      manualFields: newManualFields
+    })
+  }
+
   // Network
 
   createEmail = async e => {
-    const { fields, template, addresses } = this.state
-    const { client } = this.props
 
-    await client.emails.create({ fields, template, addresses })
   }
 
   // Life Cycle
@@ -145,15 +167,25 @@ class Emailer extends React.Component {
       this.setState({ addresses })
     }
 
+    let manualFields = window.localStorage.getItem('manual-fields')
+    if (manualFields) {
+      manualFields = JSON.parse(manualFields)
+      this.setState({ manualFields })
+    }
+
     setTimeout(() => this.setFields(), 50)
 
   }
 
   render () {
 
-    const { children, client, ...props } = this.props
+    const { children,
+      hydrated,
+      client = hydrated ? {} : null, // squelch client prop errors serverside
+      ...props
+    } = this.props
 
-    const { fields, wine, template, addresses } = this.state
+    const { fields, wine, template, manualFields } = this.state
 
     return <PageStyle {...props}>
 
@@ -162,15 +194,25 @@ class Emailer extends React.Component {
       <View>
 
         <TemplatePicker
+          hydrated={hydrated}
           template={template}
           setTemplate={this.setTemplate}
         />
 
-        <WineList
-          client={client}
-          wine={wine}
-          setWine={this.setWine}
-        />
+        {
+          template === 'most-popular'
+            ? <ManualFields
+              setManualFields={this.setManualFields}
+              manualFields={manualFields} />
+
+            : <WineList
+              client={client}
+              wine={wine}
+              setWine={this.setWine}
+            />
+        }
+
+        {/*
 
         <AddressInput
           client={client}
@@ -178,10 +220,15 @@ class Emailer extends React.Component {
           setSelected={this.setAddresses}
         />
 
-        <Column>
-          <TemplateDisplay fields={fields} template={template} />
+        */}
 
-          <CreateButton onClick={this.createEmail} />
+        <Column>
+          <TemplateDisplay id='rendered'
+            fields={{ ...manualFields, ...fields }}
+            template={template}
+          />
+
+          {/* <CreateButton onClick={this.createEmail} /> */}
         </Column>
 
       </View>

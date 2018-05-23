@@ -14,13 +14,11 @@ const PanelBody = styled.div`
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-
 `
 
 const PanelContent = styled.div`
 
   box-sizing: border-box;
-
   border: 1px solid ${props => String(props.color)};
 
   flex-grow: 1;
@@ -31,7 +29,7 @@ const PanelContent = styled.div`
 /******************************************************************************/
 
 const Panel = ({ children, color, title, ...props }) =>
-  <PanelBody>
+  <PanelBody {...props}>
     { title && <Title color={color}>{title}</Title>}
     <PanelContent color={color}>
       { children }

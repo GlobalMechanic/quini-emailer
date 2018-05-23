@@ -11,6 +11,7 @@ import BaseWine from './base-wine'
 const ConsumerOpinion = ({ children, fields, ...props }) =>
 
   <BaseWine
+    {...props}
     title='Consumer Opinion On This Wine'
     fields={fields}
     panelMargin='1em 0em 0em 5em'

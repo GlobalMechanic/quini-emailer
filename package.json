@@ -32,6 +32,7 @@
     "@feathersjs/client": "^3.4.5",
     "add-event-listener": "0.0.1",
     "color": "^3.0.0",
+    "html2canvas": "^1.0.0-alpha.12",
     "mobx": "^4.2.1",
     "mobx-react": "^5.1.2",
     "react": "^16.3.2",
@@ -40,7 +41,6 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "socket.io-client": "^2.1.0",
-    "styled-components": "^3.2.6",
-    "webshot": "^0.18.0"
+    "styled-components": "^3.2.6"
   }
 }

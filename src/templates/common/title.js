@@ -11,8 +11,8 @@ const Banner = styled.div`
   box-sizing: border-box;
   background-color: ${WHITE.fade(0.25).toString()};
 
-  margin: 2em 2em 0 2em;
-  padding: 0.5em;
+  margin: 2em 0 0 0;
+  padding: 0.5em 0em 0.5em 2em;
 
   width: 100%;
 

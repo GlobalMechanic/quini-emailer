@@ -4,7 +4,8 @@
   "socketio": true,
   "auth": false,
   "rest": {
-    "public": "./dist/public"
+    "public": "./dist/public",
+    "favicon": null
   },
 
   "mongodb": {

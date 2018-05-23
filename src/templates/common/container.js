@@ -10,7 +10,7 @@ const Container = styled.div`
   width: 875px;
   height: 550px;
   border: 1px solid black;
-  background-color: ${WHITE.toString()};
+  background-color: ${props => (props.color || WHITE).toString()};
 
   box-sizing: border-box;
 

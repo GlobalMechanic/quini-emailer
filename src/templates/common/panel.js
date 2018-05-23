@@ -11,7 +11,7 @@ const Panel = styled.div.attrs({
   })
 })`
 
-  border: 0.05em outset #ccc;
+  border: 1px outset #ccc;
   border-radius: 0.125em;
 
   background-color: ${WHITE.toString()};

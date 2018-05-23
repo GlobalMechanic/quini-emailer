@@ -11,6 +11,7 @@ import { WineDetail } from './common'
 const WineReview = ({ children, fields, ...props }) =>
 
   <BaseWine
+    {...props}
     title='Detailed Wine Review'
     subTitle={`Expectations: ${fields.expectation}`}
     titleAlign='flex-start'

@@ -1,5 +1,4 @@
 import { Service } from '@benzed/app'
-import { webshot } from './hooks'
 
 /******************************************************************************/
 // Main
@@ -8,13 +7,6 @@ import { webshot } from './hooks'
 class EmailService extends Service {
 
   addHooks (config, app) {
-
-    const saveUrl = config['save-url']
-
-    this.after({
-      create: [ webshot(saveUrl) ]
-    })
-
   }
 
 }

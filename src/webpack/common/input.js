@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { WHITE } from '../../constants'
+import { WHITE, BLUE } from '../../constants'
 
 /******************************************************************************/
 // Main Components
@@ -8,7 +8,7 @@ import { WHITE } from '../../constants'
 
 const Input = styled.input`
   box-sizing: border-box;
-  background-color: ${props => props.color.toString()};
+  background-color: ${props => (props.color || BLUE).toString()};
   border: none;
   outline: none;
   color: ${WHITE.toString()};

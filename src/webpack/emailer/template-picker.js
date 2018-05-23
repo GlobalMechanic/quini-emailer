@@ -14,11 +14,16 @@ const TEMPLATE_NAMES = [
   'consumer-opinion',
   'consumer-response',
   'wine-review',
-  'most-popular-aromas',
-  'most-popular-flavours'
+  'most-popular'
 ]
 
-const ICONS = TEMPLATE_NAMES.reduce((obj, name) => {
+let ICONS
+
+/******************************************************************************/
+// Helper
+/******************************************************************************/
+
+const buildIcons = () => TEMPLATE_NAMES.reduce((obj, name) => {
   obj[name] = require(`../assets/${name}.jpg`)
   return obj
 }, {})
@@ -28,7 +33,16 @@ const ICONS = TEMPLATE_NAMES.reduce((obj, name) => {
 /******************************************************************************/
 
 const Template = styled.img.attrs({
-  src: props => ICONS[props['data-template']]
+  src: props => {
+
+    if (props.hydrated)
+      return null
+
+    if (!ICONS)
+      ICONS = buildIcons()
+
+    return ICONS[props['data-template']]
+  }
 })`
   padding: 0.25em;
   margin: 0.25em;
@@ -67,13 +81,14 @@ class TemplatePicker extends React.Component {
 
   render () {
 
-    const { template, setTemplate } = this.props
+    const { template, hydrated, setTemplate } = this.props
 
     return <Panel color={RED} title='Template'>
       <Scrollable y='auto' height='calc(100vh - 8em)'>
         <Column>
           {TEMPLATE_NAMES.map(name =>
             <Template
+              hydrated={hydrated}
               key={name}
               selected={template === name}
               data-template={name}

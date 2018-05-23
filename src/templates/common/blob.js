@@ -6,26 +6,26 @@ import { WHITE } from '../../constants'
 // SVG
 /******************************************************************************/
 
-const BottleSvg = ({ children, ...props }) =>
+const BlobSvg = ({ children, ...props }) =>
   [
-    <svg key='svg' version='1.1' viewBox='0 0 139.9 468.7' {...props} >
+    <svg key='svg' version='1.1' viewBox='0 0 459.2 378.7' {...props} >
       <g>
-        <path d='M79.8,1.5L48.4,0c0,0,2.4,106.5-1.2,141.5c-3.6,35-45.6,92.8-46.5,146.9C0.2,317.7,0,468.7,0,468.7l137.9-4.6c0,0,4.7-105-0.2-165.9c-4.8-60.9-43.4-137-49.4-165.9C82.3,103.5,79.8,1.5,79.8,1.5'/>
+        <path d='M10.4,109.7c25-82,169.9-129.2,288-102c100,23,169,86.8,160,167c-11,98-79,204-213,204C88.4,378.7-37.9,268.2,10.4,109.7z'/>
       </g>
     </svg>,
     children
-      ? <label key='title'>{children}</label>
+      ? children.map((value, i) => <label key={i}>{value}</label>)
       : null
   ]
 
-const FACTOR = 468.7 / 139.9
+const FACTOR = 378.7 / 459.2
 
 /******************************************************************************/
 // Main Components
 /******************************************************************************/
 
-const Bottle = styled.div.attrs({
-  children: ({ title }) => <BottleSvg>{title}</BottleSvg>,
+const Blob = styled.div.attrs({
+  children: ({ text }) => <BlobSvg>{text}</BlobSvg>,
   style: props => Object({
     top: `${props.top || 0}em`,
     left: `${props.left || 0}em`,
@@ -50,12 +50,8 @@ const Bottle = styled.div.attrs({
   label {
     color: ${WHITE.toString()};
     position: relative;
-    width: 4em;
-    top: 1.5em;
-    opacity: 0.35;
-    font-size: 2.5em;
+    font-size: 1.5em;
     text-align: center;
-    text-transform: uppercase;
   }
 `
 
@@ -63,4 +59,4 @@ const Bottle = styled.div.attrs({
 // Exports
 /******************************************************************************/
 
-export default Bottle
+export default Blob
