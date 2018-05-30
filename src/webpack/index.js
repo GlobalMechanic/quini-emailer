@@ -10,7 +10,7 @@ const dependencies = Promise.all([
   import('react'),
   import('react-dom'),
   import('react-router-dom'),
-  import('./routes'),
+  import('./ui'),
   import('./client')
 ])
 
@@ -55,16 +55,17 @@ addEventListener(window, 'load', async () => {
     React,
     { render },
     { BrowserRouter },
-    { default: Routes },
+    { default: Ui },
     { default: Client }
   ] = await dependencies
 
-  const client = new Client()
-  const props = getServerProps()
+  const { host, ...props } = getServerProps()
+
+  const client = new Client(host)
   const main = getMainTag()
 
   const element = <BrowserRouter>
-    <Routes client={client} {...props} />
+    <Ui client={client} {...props} />
   </BrowserRouter>
 
   render(element, main)

@@ -59,7 +59,7 @@ const WineDetail = ({ children, fields, ...props }) => {
   return <DetailFlex {...props}>
 
     <DetailItem color={BLUE} note={eye && eye.note}>
-      Eye {eye && eye.score}/30
+      Eye {eye && eye.score}/15
     </DetailItem>
 
     <DetailItem color={PURPLE} note={nose && nose.note}>

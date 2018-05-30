@@ -1,7 +1,9 @@
 import styled from 'styled-components'
 import React from 'react'
 
-import { RED, WHITE } from '../../constants'
+import { WHITE } from '../../constants'
+
+import { getColor } from '../base-wine'
 
 /******************************************************************************/
 //
@@ -12,7 +14,7 @@ const WineRatingBase = styled.div`
   flex-direction: column;
   flex-grow: 1;
 
-  background-color: ${RED.toString()};
+  background-color: ${props => getColor(props.color).toString()};
   color: ${WHITE.toString()};
 
   padding: 1.5em;
@@ -46,9 +48,9 @@ const Row = styled.div`
   }
 `
 
-const WineRating = ({ wine, expectation, ratingName, ratingValue }) => {
+const WineRating = ({ wine, color, expectation, expectationOverride, ratingName, ratingValue }) => {
 
-  return <WineRatingBase>
+  return <WineRatingBase color={color}>
     <Row>
       <h2>Expectations</h2>
       <h1>{expectation}</h1>

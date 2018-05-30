@@ -3,10 +3,10 @@ import feathers from '@feathersjs/client'
 import io from 'socket.io-client'
 
 /******************************************************************************/
-// TODO
+// Host
 /******************************************************************************/
 
-const HOST = 'http://localhost:5400'
+const HOST = `http://localhost:7100`
 
 /******************************************************************************/
 // Main
@@ -14,22 +14,23 @@ const HOST = 'http://localhost:5400'
 
 class Client {
 
-  constructor () {
-    const socket = io(HOST)
+  constructor (host = HOST) {
+
+    const socket = io(host)
     this.feathers = feathers()
       .configure(feathers.socketio(socket))
   }
 
-  get emails () {
-    return this.feathers.service('emails')
+  get wines () {
+    return this.feathers.service('wines')
   }
 
-  get users () {
-    return this.feathers.service('users')
+  get aggregates () {
+    return this.feathers.service('aggregates')
   }
 
-  get addresses () {
-    return this.feathers.service('addresses')
+  get reviews () {
+    return this.feathers.service('reviews')
   }
 
   untilConnected () {
@@ -37,7 +38,7 @@ class Client {
       if (this.feathers.io.connected)
         resolve()
 
-      this.feathers.io.once('connect', () => resolve())
+      this.feathers.io.once('connect', resolve)
     })
   }
 

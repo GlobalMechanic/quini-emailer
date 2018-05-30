@@ -51,6 +51,7 @@ const Blob = styled.div.attrs({
     color: ${WHITE.toString()};
     position: relative;
     font-size: 1.5em;
+    padding: 0.25em;
     text-align: center;
   }
 `

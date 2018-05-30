@@ -18,6 +18,8 @@ import { PURPLE, BLACK, WHITE, BLUE } from '../../constants'
 // Styles
 /******************************************************************************/
 
+const QUINI = `https://quiniwine.com` // TODO MOVE ME
+
 const PageStyle = Column.extend`
   background-color: ${WHITE.toString()};
   color: ${BLUE.toString()};
@@ -90,9 +92,18 @@ class Emailer extends React.Component {
     this.setState({ fields })
   }
 
-  setWine = wine => {
+  setWine = async wine => {
     this.setState({ wine })
     window.localStorage.setItem('wine', JSON.stringify(wine))
+
+    if (wine) {
+      const id = wine._id
+
+      const res = await fetch(`${QUINI}/aggregates?wine_id=${id}`)
+      const aggregate = await res.json()
+      // console.log(await res.json())
+    }
+
     this.setFields()
   }
 
@@ -116,7 +127,10 @@ class Emailer extends React.Component {
       addresses = [ ...addresses, addressId ]
 
     this.setState({ addresses })
-    window.localStorage.setItem('addresses', JSON.stringify(addresses))
+
+    window
+      .localStorage
+      .setItem('addresses', JSON.stringify(addresses))
   }
 
   setManualFields = e => {
@@ -134,7 +148,9 @@ class Emailer extends React.Component {
       [field]: value
     }
 
-    window.localStorage.setItem('manual-fields', JSON.stringify(newManualFields))
+    window
+      .localStorage
+      .setItem('manual-fields', JSON.stringify(newManualFields))
 
     this.setState({
       manualFields: newManualFields
@@ -174,7 +190,6 @@ class Emailer extends React.Component {
     }
 
     setTimeout(() => this.setFields(), 50)
-
   }
 
   render () {
@@ -185,7 +200,7 @@ class Emailer extends React.Component {
       ...props
     } = this.props
 
-    const { fields, wine, template, manualFields } = this.state
+    const { fields, filter, wine, template, manualFields } = this.state
 
     return <PageStyle {...props}>
 
@@ -208,7 +223,9 @@ class Emailer extends React.Component {
             : <WineList
               client={client}
               wine={wine}
+              filter={filter}
               setWine={this.setWine}
+              setFilter={this.setFilter}
             />
         }
 

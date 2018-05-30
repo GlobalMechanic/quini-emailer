@@ -14,14 +14,14 @@ const DIM = 8
 
 const FlowerReviewCrop = styled.div`
   overflow: hidden;
-  height: ${DIM - 1}em;
+  height: ${props => props.cropped ? `${DIM - 1}em` : '100%'};
 `
 
 const FlowerImg = styled.img.attrs({
   src: ({ wineId }) => wineId && `${HOST}?wine_id=${wineId}&review=false`
 })`
-  width: ${DIM}em;
-  height: ${DIM}em;
+  height: ${props => props.cropped ? `${DIM}em` : '100%'};
+  ${props => props.cropped ? `width: ${DIM}em;` : ''}
   border: none;
 `
 
@@ -29,9 +29,9 @@ const FlowerImg = styled.img.attrs({
 // Main Component
 /******************************************************************************/
 
-const Flower = ({ wineId }) =>
-  <FlowerReviewCrop>
-    <FlowerImg wineId={wineId} />
+const Flower = ({ wineId, cropped }) =>
+  <FlowerReviewCrop cropped={cropped} >
+    <FlowerImg wineId={wineId} cropped={cropped} />
   </FlowerReviewCrop>
 
 /******************************************************************************/

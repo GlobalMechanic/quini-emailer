@@ -1,3 +1,5 @@
-import emails from './emails'
+import wines from './wines'
+import reviews from './reviews'
+import aggregates from './aggregates'
 
-export { emails }
+export { wines, reviews, aggregates }

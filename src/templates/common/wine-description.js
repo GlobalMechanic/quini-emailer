@@ -75,7 +75,7 @@ const Origin = ({ fields }) => {
 
 const WineDescription = ({ children, fields, ...props }) =>
   <WineDescriptionBase {...props}>
-    <Flower wineId={fields.wineId}/>
+    <Flower wineId={fields.wineId} cropped/>
     <Data fields={fields}
       path='name'
     />
@@ -100,9 +100,7 @@ const WineDescription = ({ children, fields, ...props }) =>
     <Origin fields={fields}/>
 
     <ThinLabel fade={0.7} size={0.8}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor
-      faucibus augue nec elementum. Mauris in dolor tincidunt, cursus magna vel,
-      ornare odio. Aliquam tempus nisi vitae sem volutpat, id dictum purus lacinia.
+      { fields.review }
     </ThinLabel>
 
     { children }

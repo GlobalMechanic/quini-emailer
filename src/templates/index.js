@@ -3,7 +3,6 @@ import ConsumerResponse from './consumer-response'
 import WineReview from './wine-review'
 import MostPopular from './most-popular'
 
-import { RED, YELLOW } from '../constants'
 /******************************************************************************/
 // EXports
 /******************************************************************************/

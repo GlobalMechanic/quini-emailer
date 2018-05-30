@@ -21,6 +21,8 @@ const Panel = styled.div.attrs({
 
   overflow: hidden;
 
+  min-height: 20em;
+
 `
 
 /******************************************************************************/

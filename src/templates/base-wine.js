@@ -1,7 +1,21 @@
 import React from 'react'
 
 import { Bottle, Container, Title, Panel, WineDescription, QuiniTag } from './common'
-import { RED } from '../constants'
+import { RED, YELLOW, PURPLE } from '../constants'
+
+/******************************************************************************/
+// Helper
+/******************************************************************************/
+
+function getColor (color) {
+  if (color === 'white')
+    return YELLOW
+
+  if (color === 'rose')
+    return PURPLE
+
+  return RED
+}
 
 /******************************************************************************/
 // Main Component
@@ -20,7 +34,7 @@ const BaseWine = ({
   <Container {...props}>
 
     <Bottle
-      color={RED}
+      color={getColor(fields.color).toString()}
       width={13}
       left={1}
       top={-8}
@@ -44,3 +58,5 @@ const BaseWine = ({
 /******************************************************************************/
 
 export default BaseWine
+
+export { getColor }

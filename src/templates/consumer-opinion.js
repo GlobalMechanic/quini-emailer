@@ -18,8 +18,10 @@ const ConsumerOpinion = ({ children, fields, ...props }) =>
   >
     <WineRating
       expectation={fields.expectation}
-      ratingName='Opinion'
+      expectationOverride={fields['expectation-override']}
+      ratingName='Price'
       ratingValue={fields.rating}
+      color={fields.color}
     />
   </BaseWine>
 

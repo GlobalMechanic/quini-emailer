@@ -19,3 +19,10 @@ export const WHITE = new Color('#fff')
 export const BLACK = new Color('#000')
 
 export const FONT = 'SuperGrotesk'
+
+export const TEMPLATE_NAMES = [
+  'consumer-opinion',
+  'consumer-response',
+  'wine-review',
+  'most-popular'
+]

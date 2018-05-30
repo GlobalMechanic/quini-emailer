@@ -5,3 +5,4 @@ dist
 *.temp.js
 test-shots
 storage
+development.json
